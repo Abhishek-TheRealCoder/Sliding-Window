@@ -9,14 +9,30 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-vector<int>subArraySum(vector<int>&arr,int n){
-    
+vector<int>subArraySum(vector<int>&arr,int n,int target){
+    int i = 0;
+    int j = 0;
+    int sum = 0;
+    while(j < n){
+        sum += arr[j];
+
+        while(sum > target && j > i){
+            sum -= arr[i];
+            i++;
+        }
+        if(sum == target){
+            return {i+1,j+1};
+        }
+        j++;
+    }
+    return {-1,-1};
 }
 
 int main(){
     vector<int>arr={1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     int n = arr.size();
     int target = 15;
-    vector<int>ans = subArraySum(arr,n);
+    vector<int>ans = subArraySum(arr,n,target);
     cout<<ans[0]<<" "<<ans[1];
+    return 0;
 }
